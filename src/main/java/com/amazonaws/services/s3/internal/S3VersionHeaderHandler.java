@@ -31,7 +31,6 @@ public class S3VersionHeaderHandler implements HeaderHandler<CopyObjectResultHan
      * com.amazonaws.services.s3.internal.HeaderHandler#handle(java.lang.Object,
      * com.amazonaws.http.HttpResponse)
      */
-    @Override
     public void handle(CopyObjectResultHandler result, HttpResponse response) {
         result.setVersionId(response.getHeaders().get(Headers.S3_VERSION_ID));
     }

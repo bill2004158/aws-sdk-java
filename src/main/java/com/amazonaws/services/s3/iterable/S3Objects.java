@@ -113,19 +113,16 @@ public class S3Objects implements Iterable<S3ObjectSummary> {
 
         private Iterator<S3ObjectSummary> currentIterator = null;
 
-        @Override
         public boolean hasNext() {
             prepareCurrentListing();
             return currentIterator.hasNext();
         }
 
-        @Override
         public S3ObjectSummary next() {
             prepareCurrentListing();
             return currentIterator.next();
         }
 
-        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -149,7 +146,6 @@ public class S3Objects implements Iterable<S3ObjectSummary> {
 
     }
 
-    @Override
     public Iterator<S3ObjectSummary> iterator() {
         return new S3ObjectIterator();
     }

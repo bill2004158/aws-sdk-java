@@ -39,7 +39,6 @@ class ChildWorkflowDecisionStateMachine extends DecisionStateMachineBase {
         this.startAttributes = startAttributes;
     }
 
-    @Override
     public Decision getDecision() {
         switch (state) {
         case CREATED:

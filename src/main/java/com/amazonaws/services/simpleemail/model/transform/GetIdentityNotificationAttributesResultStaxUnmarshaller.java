@@ -32,7 +32,7 @@ import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
  */
 public class GetIdentityNotificationAttributesResultStaxUnmarshaller implements Unmarshaller<GetIdentityNotificationAttributesResult, StaxUnmarshallerContext> {
     private static class NotificationAttributesMapEntryUnmarshaller implements Unmarshaller<Map.Entry<String, IdentityNotificationAttributes>, StaxUnmarshallerContext> {
-        @Override
+        
         public Entry<String, IdentityNotificationAttributes> unmarshall(StaxUnmarshallerContext context) throws Exception {
             int originalDepth = context.getCurrentDepth();
             int targetDepth = originalDepth + 1;

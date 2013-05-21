@@ -24,7 +24,6 @@ public class AsyncRetryingExecutor implements AsyncExecutor {
         this.clock = clock;
     }
 
-    @Override
     public void execute(AsyncRunnable command) throws Throwable {
         scheduleWithRetry(command, null, 1, clock.currentTimeMillis(), 0);
     }

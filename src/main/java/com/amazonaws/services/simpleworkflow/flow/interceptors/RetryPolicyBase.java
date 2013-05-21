@@ -80,7 +80,6 @@ public abstract class RetryPolicyBase implements RetryPolicy {
         return this;
     }
 
-    @Override
     public boolean isRetryable(Throwable failure) {
         boolean isRetryable = false;
         

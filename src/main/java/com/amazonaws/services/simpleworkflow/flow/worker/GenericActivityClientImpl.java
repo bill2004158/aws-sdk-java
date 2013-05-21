@@ -54,11 +54,9 @@ class GenericActivityClientImpl implements GenericActivityClient {
             this.handle = handle;
         }
 
-        @Override
         public void handleCancellation(Throwable cause) {
             decisions.requestCancelActivityTask(activityId, new Runnable() {
 
-                @Override
                 public void run() {
                     OpenRequestInfo<String, ActivityType> scheduled = scheduledActivities.remove(activityId);
                     if (scheduled == null) {
@@ -78,7 +76,6 @@ class GenericActivityClientImpl implements GenericActivityClient {
         this.decisions = decisions;
     }
 
-    @Override
     public Promise<String> scheduleActivityTask(final ExecuteActivityParameters parameters) {
         final OpenRequestInfo<String, ActivityType> context = new OpenRequestInfo<String, ActivityType>(
                 parameters.getActivityType());
@@ -96,7 +93,7 @@ class GenericActivityClientImpl implements GenericActivityClient {
         attributes.setActivityId(activityId);
 
         String taskList = parameters.getTaskList();
-        if (taskList != null && !taskList.isEmpty()) {
+        if (taskList != null && !(taskList.length() == 0)) {
             attributes.setTaskList(new TaskList().withName(taskList));
         }
         String taskName = "activityId=" + activityId + ", activityType=" + attributes.getActivityType();
@@ -115,7 +112,6 @@ class GenericActivityClientImpl implements GenericActivityClient {
         return context.getResult();
     }
 
-    @Override
     public Promise<String> scheduleActivityTask(final String activity, final String version, final Promise<String> input) {
         final Settable<String> result = new Settable<String>();
         new Task(input) {
@@ -128,7 +124,6 @@ class GenericActivityClientImpl implements GenericActivityClient {
         return result;
     }
 
-    @Override
     public Promise<String> scheduleActivityTask(String activity, String version, String input) {
         ExecuteActivityParameters parameters = new ExecuteActivityParameters();
         parameters.setActivityType(new ActivityType().withName(activity).withVersion(version));

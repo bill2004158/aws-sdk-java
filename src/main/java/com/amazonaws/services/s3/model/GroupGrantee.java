@@ -54,7 +54,6 @@ public enum GroupGrantee implements Grantee {
     /* (non-Javadoc)
      * @see com.amazonaws.services.s3.model.Grantee#getTypeIdentifier()
      */
-    @Override
     public String getTypeIdentifier() {
         return "uri";
     }

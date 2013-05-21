@@ -127,7 +127,6 @@ public class ExponentialRetryPolicy extends RetryPolicyBase {
         return this;
     }
 
-    @Override
     public long nextRetryDelaySeconds(Date firstAttempt, Date recordedFailure, int numberOfTries) {
 
         if (numberOfTries < 2) {

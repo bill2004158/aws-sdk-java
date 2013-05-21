@@ -142,18 +142,11 @@ public class AmazonHttpClient {
      * cert hostname wildcards are evaulated more liberally).
      */
     public void disableStrictHostnameVerification() {
-        try {
-            SchemeRegistry schemeRegistry = httpClient.getConnectionManager().getSchemeRegistry();
+        SchemeRegistry schemeRegistry = httpClient.getConnectionManager().getSchemeRegistry();
 
-            SSLSocketFactory sf = new SSLSocketFactory(
-                    SSLContext.getDefault(),
-                    SSLSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
-            Scheme https = new Scheme("https", 443, sf);
+        Scheme https = new Scheme("https", 443, SSLSocketFactory.getSocketFactory());
 
-            schemeRegistry.register(https);
-        } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to access default SSL context to disable strict hostname verification");
-        }
+        schemeRegistry.register(https);
     }
 
     /**

@@ -93,14 +93,13 @@ public class GenericActivityWorker extends GenericWorker {
 
     @Override
     protected TaskPoller createPoller() {
-        ThreadPoolExecutor tasksExecutor = new ThreadPoolExecutor(1, taskExecutorThreadPoolSize, 1, TimeUnit.MINUTES,
+        ThreadPoolExecutor tasksExecutor = new ThreadPoolExecutor(1, taskExecutorThreadPoolSize, 60, TimeUnit.SECONDS,
                 new SynchronousQueue<Runnable>());
         tasksExecutor.setThreadFactory(new ExecutorThreadFactory(ACTIVITY_THREAD_NAME_PREFIX + " " + getTaskListToPoll() + " "));
         tasksExecutor.setRejectedExecutionHandler(new BlockCallerPolicy());
         return new ActivityTaskPoller(service, domain, getTaskListToPoll(), activityImplementationFactory, tasksExecutor);
     }
 
-    @Override
     public void registerTypesToPoll() {
         registerActivityTypes(service, domain, getTaskListToPoll(), activityImplementationFactory);
     }
@@ -137,7 +136,7 @@ public class GenericActivityWorker extends GenericWorker {
         else if (taskList.equals(FlowConstants.NO_DEFAULT_TASK_LIST)) {
             taskList = null;
         }
-        if (taskList != null && !taskList.isEmpty()) {
+        if (taskList != null && !(taskList.length() == 0)) {
             registerActivity.setDefaultTaskList(new TaskList().withName(taskList));
         }
         registerActivity.setName(activityType.getName());

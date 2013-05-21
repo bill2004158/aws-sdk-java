@@ -137,7 +137,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * Returns an iterator over this list that lazily initializes results as
      * necessary.
      */
-    @Override
     public Iterator<T> iterator() {
         
         /*
@@ -157,12 +156,10 @@ public abstract class PaginatedList<T> implements List<T> {
             Iterator<T> iterator = iter;
             int pos = 0;
             
-            @Override
             public boolean hasNext() {
                 return iterator.hasNext() || nextResultsAvailable();
             }
     
-            @Override
             public T next() {
                 if ( !iterator.hasNext() ) {
                     /*
@@ -188,7 +185,6 @@ public abstract class PaginatedList<T> implements List<T> {
                 return iterator.next();
             }
             
-            @Override
             public void remove() {
                 throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
             }            
@@ -199,7 +195,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * Returns whether the collection is empty. At most one (non-empty) page of
      * results is loaded to make the check.
      */
-    @Override
     public boolean isEmpty() {
         return !iterator().hasNext();
     }
@@ -208,7 +203,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * Returns the Nth element of the list. Results are loaded until N elements
      * are present, if necessary.
      */
-    @Override
     public T get(int n) {
         while ( allResults.size() <= n && nextResultsAvailable() ) {
             moveNextResults();
@@ -222,7 +216,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * loaded and checked incrementally until a match is found or the end of the
      * result set is reached.
      */
-    @Override
     public boolean contains(Object arg0) {
         if ( allResults.contains(arg0) )
             return true;
@@ -241,7 +234,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * Returns a sub-list in the range specified, loading more results as
      * necessary.
      */
-    @Override
     public List<T> subList(int arg0, int arg1) {
         while ( allResults.size() < arg1 && nextResultsAvailable() ) {
             moveNextResults();
@@ -254,7 +246,6 @@ public abstract class PaginatedList<T> implements List<T> {
      * Returns the first index of the object given in the list. Additional
      * results are loaded incrementally as necessary.
      */
-    @Override
     public int indexOf(Object arg0) {
         int indexOf = allResults.indexOf(arg0);
         if ( indexOf >= 0 )
@@ -273,31 +264,26 @@ public abstract class PaginatedList<T> implements List<T> {
 
     // Operations requiring the entire result set
     
-    @Override
     public int size() {
         loadAllResults();
         return allResults.size();
     }
     
-    @Override
     public boolean containsAll(Collection<?> arg0) {
         loadAllResults();
         return allResults.containsAll(arg0);
     }
 
-    @Override
     public int lastIndexOf(Object arg0) {
         loadAllResults();
         return allResults.lastIndexOf(arg0);
     }
 
-    @Override
     public Object[] toArray() {
         loadAllResults();
         return allResults.toArray();
     }
 
-    @Override
     public <X> X[] toArray(X[] a) {
         loadAllResults();
         return allResults.toArray(a);
@@ -305,62 +291,50 @@ public abstract class PaginatedList<T> implements List<T> {
 
     // Unsupported Operations
 
-    @Override
     public ListIterator<T> listIterator() {
         throw new UnsupportedOperationException("ListIterators are not supported for this list");
     }
 
-    @Override
     public ListIterator<T> listIterator(int arg0) {
         throw new UnsupportedOperationException("ListIterators are not supported for this list");
     }
 
-    @Override
     public boolean remove(Object arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public T remove(int arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public boolean removeAll(Collection<?> arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public boolean retainAll(Collection<?> arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public T set(int arg0, T arg1) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public boolean add(T arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public void add(int arg0, T arg1) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public boolean addAll(Collection<? extends T> arg0) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public boolean addAll(int arg0, Collection<? extends T> arg1) {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }
 
-    @Override
     public void clear() {
         throw new UnsupportedOperationException(UNMODIFIABLE_MESSAGE);
     }

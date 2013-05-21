@@ -966,12 +966,10 @@ public class AmazonS3Client extends AmazonWebServiceClient implements AmazonS3 {
 
         S3Object s3Object = ServiceUtils.retryableDownloadS3ObjectToFile(destinationFile, new ServiceUtils.RetryableS3DownloadTask() {
 
-            @Override
             public S3Object getS3ObjectStream() {
                 return getObject(getObjectRequest);
             }
 
-            @Override
             public boolean needIntegrityCheck() {
                 return getObjectRequest.getRange()== null;
             }

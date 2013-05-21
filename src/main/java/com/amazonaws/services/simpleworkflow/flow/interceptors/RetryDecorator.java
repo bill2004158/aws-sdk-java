@@ -43,7 +43,6 @@ public class RetryDecorator implements Decorator {
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public final <V> V decorate(Class<V> interfaces, V object) {
 
         Class<?>[] interfazes = { interfaces };
@@ -53,7 +52,6 @@ public class RetryDecorator implements Decorator {
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public final <V> V decorate(Class<?>[] interfaces, V object) {
 
         return (V) Proxy.newProxyInstance(object.getClass().getClassLoader(), interfaces, new DecoratorInvocationHandler(object));
@@ -84,7 +82,6 @@ public class RetryDecorator implements Decorator {
                 this.method = method;
             }
 
-            @Override
             public void run() throws Throwable {
                 if (result == null) {
                     // void return type
@@ -109,7 +106,6 @@ public class RetryDecorator implements Decorator {
             this.object = object;
         }
 
-        @Override
         public Object invoke(Object proxy, final Method method, final Object[] args) throws Throwable {
             try {
                 if (!isDecorated(method, args)) {

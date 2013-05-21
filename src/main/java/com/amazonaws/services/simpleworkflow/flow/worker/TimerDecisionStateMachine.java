@@ -46,7 +46,6 @@ class TimerDecisionStateMachine extends DecisionStateMachineBase {
         this.attributes = attributes;
     }
     
-    @Override
     public Decision getDecision() {
         switch (state) {
         case CREATED:

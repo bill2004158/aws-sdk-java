@@ -38,7 +38,6 @@ public class ActivityTaskPoller extends SynchronousActivityTaskPoller {
 
     private UncaughtExceptionHandler uncaughtExceptionHandler = new UncaughtExceptionHandler() {
 
-        @Override
         public void uncaughtException(Thread t, Throwable e) {
             log.error("Failure in thread " + t.getName(), e);
         }
@@ -86,7 +85,6 @@ public class ActivityTaskPoller extends SynchronousActivityTaskPoller {
             try {
                 taskExecutorService.execute(new Runnable() {
 
-                    @Override
                     public void run() {
                         try {
                             execute(task);

@@ -60,12 +60,10 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
             this.runId = runId;
         }
 
-        @Override
         public String getRunId() {
             return runId;
         }
 
-        @Override
         public Promise<String> getResult() {
             return result;
         }
@@ -206,7 +204,6 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         this.decisionContextProvider = decisionContextProvider;
     }
 
-    @Override
     public Promise<StartChildWorkflowReply> startChildWorkflow(final StartChildWorkflowExecutionParameters parameters) {
         Settable<StartChildWorkflowReply> reply = new Settable<StartChildWorkflowReply>();
         Settable<String> result = new Settable<String>();
@@ -312,7 +309,6 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         };
     }
 
-    @Override
     public Promise<String> startChildWorkflow(String workflow, String version, String input) {
         StartChildWorkflowExecutionParameters parameters = new StartChildWorkflowExecutionParameters();
         WorkflowType workflowType = new WorkflowType().withName(workflow).withVersion(version);
@@ -324,7 +320,6 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         return result;
     }
 
-    @Override
     public Promise<String> startChildWorkflow(final String workflow, final String version, final Promise<String> input) {
         return new Functor<String>(input) {
 
@@ -335,7 +330,6 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         };
     }
 
-    @Override
     public Promise<Void> signalWorkflowExecution(final SignalExternalWorkflowParameters signalParameters) {
         WorkflowExecution signaledExecution = new WorkflowExecution();
         signaledExecution.setWorkflowId(signalParameters.getWorkflowId());
@@ -352,7 +346,6 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         return Promise.Void();
     }
 
-    @Override
     public void requestCancelWorkflowExecution(WorkflowExecution execution) {
         String workflowId = execution.getWorkflowId();
         if (workflowId == null) {
@@ -385,13 +378,11 @@ public class TestGenericWorkflowClient implements GenericWorkflowClient {
         return childTryCatch.getWorkflowState();
     }
 
-    @Override
     public void continueAsNewOnCompletion(ContinueAsNewWorkflowExecutionParameters parameters) {
         DecisionContext decisionContext = decisionContextProvider.getDecisionContext();
         decisionContext.getWorkflowContext().setContinueAsNewOnCompletion(parameters);
     }
 
-    @Override
     public String generateUniqueId() {
         return UUID.randomUUID().toString();
     }

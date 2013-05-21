@@ -30,7 +30,6 @@ public class AndPromise extends Promise<Void> {
             this.count = count;
         }
 
-        @Override
         public void run() {
             if (--count == 0) {
                 impl.set(null);

@@ -489,7 +489,7 @@ public class TransferManager {
         transferProgress.setTotalBytesToTransfer(contentLength);
 
         Future<?> future = threadPool.submit(new Callable<Object>() {
-            @Override
+            
             public Object call() throws Exception {
                 try {
                     synchronized (startDownloadLock) {
@@ -504,14 +504,12 @@ public class TransferManager {
                     download.setState(TransferState.InProgress);
                     S3Object s3Object = ServiceUtils.retryableDownloadS3ObjectToFile(file, new ServiceUtils.RetryableS3DownloadTask() {
 						
-						@Override
 						public S3Object getS3ObjectStream() {
 							S3Object s3Object = s3.getObject(getObjectRequest);
 							download.setS3Object(s3Object);
 							return s3Object;
 						}
 						
-						@Override
 						public boolean needIntegrityCheck() {
 		                    // Don't perform the integrity check if the stream data is wrapped
 		                    // in a decryption stream, or if we're only looking at a range of
@@ -670,7 +668,6 @@ public class TransferManager {
             this.multipleFileTransfer = multipleFileDownload;
         }
 
-        @Override
         public void transferStateChanged(Transfer upload, TransferState state) {
 
             // There's a race here: we can't start monitoring the state of

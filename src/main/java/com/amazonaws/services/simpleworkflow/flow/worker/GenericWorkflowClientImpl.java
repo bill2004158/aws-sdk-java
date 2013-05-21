@@ -212,7 +212,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
                 scheduledSignals.put(finalSignalId, context);
                 return new ExternalTaskCancellationHandler() {
 
-                    @Override
                     public void handleCancellation(Throwable cause) {
                         decisions.cancelSignalExternalWorkflowExecution(finalSignalId, null);
                         OpenRequestInfo<Void, Void> scheduled = scheduledSignals.remove(finalSignalId);

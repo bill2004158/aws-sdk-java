@@ -83,7 +83,6 @@ public class GenericWorkflowWorker extends GenericWorker {
         return result;
     }
 
-    @Override
     public void registerTypesToPoll() {
         registerWorkflowTypes(service, domain, getTaskListToPoll(), workflowDefinitionFactoryFactory);
     }
@@ -127,7 +126,7 @@ public class GenericWorkflowWorker extends GenericWorker {
         else if (taskList.equals(FlowConstants.NO_DEFAULT_TASK_LIST)) {
             taskList = null;
         }
-        if (taskList != null && !taskList.isEmpty()) {
+        if (taskList != null && !(taskList.length() == 0)) {
             registerWorkflow.setDefaultTaskList(new TaskList().withName(taskList));
         }
         registerWorkflow.setDefaultChildPolicy(registrationOptions.getDefaultChildPolicy().toString());

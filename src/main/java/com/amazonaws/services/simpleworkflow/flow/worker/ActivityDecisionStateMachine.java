@@ -37,7 +37,6 @@ class ActivityDecisionStateMachine extends DecisionStateMachineBase {
         this.scheduleAttributes = scheduleAttributes;
     }
 
-    @Override
     public Decision getDecision() {
         switch (state) {
         case CREATED:

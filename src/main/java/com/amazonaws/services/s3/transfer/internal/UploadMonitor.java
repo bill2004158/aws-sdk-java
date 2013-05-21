@@ -130,7 +130,6 @@ public class UploadMonitor implements Callable<UploadResult>, TransferMonitor {
         this.timedThreadPool = timedThreadPool;
     }
 
-    @Override
     public UploadResult call() throws Exception {
         try {
             if ( uploadId == null ) {

@@ -96,20 +96,15 @@ class HttpClientFactory {
         DefaultHttpClient httpClient = new DefaultHttpClient(connectionManager, httpClientParams);
         httpClient.setRedirectStrategy(new LocationHeaderNotRequiredRedirectStrategy());
 
-        try {
-            Scheme http = new Scheme("http", 80, PlainSocketFactory.getSocketFactory());
+        Scheme http = new Scheme("http", 80, PlainSocketFactory.getSocketFactory());
 
-            SSLSocketFactory sf = new SSLSocketFactory(
-                    SSLContext.getDefault(),
-                    SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-            Scheme https = new Scheme("https", 443, sf);
+        SSLSocketFactory sf = SSLSocketFactory.getSocketFactory();
+        sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+        Scheme https = new Scheme("https", 443, SSLSocketFactory.getSocketFactory());
 
-            SchemeRegistry sr = connectionManager.getSchemeRegistry();
-            sr.register(http);
-            sr.register(https);
-        } catch (NoSuchAlgorithmException e) {
-            throw new AmazonClientException("Unable to access default SSL context", e);
-        }
+        SchemeRegistry sr = connectionManager.getSchemeRegistry();
+        sr.register(http);
+        sr.register(https);
 
         /*
          * If SSL cert checking for endpoints has been explicitly disabled,

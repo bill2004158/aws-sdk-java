@@ -136,11 +136,9 @@ public abstract class WorkflowTestBase implements MethodRule {
         this.clockAcceleration = clockAcceleration;
     }
 
-    @Override
     public Statement apply(final Statement base, FrameworkMethod method, Object target) {
         Callable<WorkflowTestBase> accessor = new Callable<WorkflowTestBase>() {
 
-            @Override
             public WorkflowTestBase call() throws Exception {
                 return WorkflowTestBase.this;
             }

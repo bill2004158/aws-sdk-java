@@ -50,7 +50,6 @@ public class DynamicActivitiesClientImpl implements DynamicActivitiesClient {
 
     }
 
-    @Override
     public DataConverter getDataConverter() {
         return dataConverter;
     }
@@ -59,7 +58,6 @@ public class DynamicActivitiesClientImpl implements DynamicActivitiesClient {
         this.dataConverter = dataConverter;
     }
 
-    @Override
     public ActivitySchedulingOptions getSchedulingOptions() {
         return schedulingOptions;
     }
@@ -68,7 +66,6 @@ public class DynamicActivitiesClientImpl implements DynamicActivitiesClient {
         this.schedulingOptions = schedulingOptions;
     }
 
-    @Override
     public GenericActivityClient getGenericClient() {
         return genericClient;
     }

@@ -338,7 +338,7 @@ public class StartWorkflowExecutionParameters {
     		}
     		
     		String taskList = options.getTaskList();
-    		if (taskList != null && !taskList.isEmpty()) { 
+    		if (taskList != null && !(taskList.length() == 0)) { 
     			parameters.setTaskList(taskList);
     		}
     	}
@@ -360,7 +360,7 @@ public class StartWorkflowExecutionParameters {
     		}
     		
     		String taskList = optionsOverride.getTaskList();
-    		if (taskList != null && !taskList.isEmpty()) { 
+    		if (taskList != null && !(taskList.length() == 0)) { 
     			parameters.setTaskList(taskList);
     		}
     	}

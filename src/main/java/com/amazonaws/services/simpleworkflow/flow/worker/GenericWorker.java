@@ -45,7 +45,6 @@ public abstract class GenericWorker implements WorkerBase {
             this.threadPrefix = threadPrefix;
         }
 
-        @Override
         public Thread newThread(Runnable r) {
             Thread result = new Thread(r);
             result.setName(threadPrefix + (threadIndex.incrementAndGet()));
@@ -62,7 +61,6 @@ public abstract class GenericWorker implements WorkerBase {
             this.poller = poller;
         }
 
-        @Override
         public void run() {
             try {
                 if (log.isDebugEnabled()) {
@@ -151,7 +149,6 @@ public abstract class GenericWorker implements WorkerBase {
 
     protected UncaughtExceptionHandler uncaughtExceptionHandler = new UncaughtExceptionHandler() {
 
-        @Override
         public void uncaughtException(Thread t, Throwable e) {
             log.error("Failure in thread " + t.getName(), e);
         }
@@ -171,7 +168,6 @@ public abstract class GenericWorker implements WorkerBase {
         identity = identity.substring(0, length);
     }
 
-    @Override
     public AmazonSimpleWorkflow getService() {
         return service;
     }
@@ -180,7 +176,6 @@ public abstract class GenericWorker implements WorkerBase {
         this.service = service;
     }
 
-    @Override
     public String getDomain() {
         return domain;
     }
@@ -189,7 +184,6 @@ public abstract class GenericWorker implements WorkerBase {
         this.domain = domain;
     }
 
-    @Override
     public boolean isRegisterDomain() {
         return registerDomain;
     }
@@ -199,22 +193,18 @@ public abstract class GenericWorker implements WorkerBase {
      * When enabled {@link #setDomainRetentionPeriodInDays(Long)} property is
      * required.
      */
-    @Override
     public void setRegisterDomain(boolean registerDomain) {
         this.registerDomain = registerDomain;
     }
 
-    @Override
     public long getDomainRetentionPeriodInDays() {
         return domainRetentionPeriodInDays;
     }
 
-    @Override
     public void setDomainRetentionPeriodInDays(long domainRetentionPeriodInDays) {
         this.domainRetentionPeriodInDays = domainRetentionPeriodInDays;
     }
 
-    @Override
     public String getTaskListToPoll() {
         return taskListToPoll;
     }
@@ -223,52 +213,42 @@ public abstract class GenericWorker implements WorkerBase {
         this.taskListToPoll = taskListToPoll;
     }
 
-    @Override
     public double getMaximumPollRatePerSecond() {
         return maximumPollRatePerSecond;
     }
 
-    @Override
     public void setMaximumPollRatePerSecond(double maximumPollRatePerSecond) {
         this.maximumPollRatePerSecond = maximumPollRatePerSecond;
     }
 
-    @Override
     public int getMaximumPollRateIntervalMilliseconds() {
         return maximumPollRateIntervalMilliseconds;
     }
 
-    @Override
     public void setMaximumPollRateIntervalMilliseconds(int maximumPollRateIntervalMilliseconds) {
         this.maximumPollRateIntervalMilliseconds = maximumPollRateIntervalMilliseconds;
     }
 
-    @Override
     public UncaughtExceptionHandler getUncaughtExceptionHandler() {
         return uncaughtExceptionHandler;
     }
 
-    @Override
     public void setUncaughtExceptionHandler(UncaughtExceptionHandler uncaughtExceptionHandler) {
         this.uncaughtExceptionHandler = uncaughtExceptionHandler;
     }
 
-    @Override
     public String getIdentity() {
         return identity;
     }
 
-    @Override
     public void setIdentity(String identity) {
         this.identity = identity;
     }
 
-    @Override
     public long getPollBackoffInitialInterval() {
         return pollBackoffInitialInterval;
     }
 
-    @Override
     public void setPollBackoffInitialInterval(long backoffInitialInterval) {
         if (backoffInitialInterval < 0) {
             throw new IllegalArgumentException("expected value should be positive or 0: " + backoffInitialInterval);
@@ -276,12 +256,10 @@ public abstract class GenericWorker implements WorkerBase {
         this.pollBackoffInitialInterval = backoffInitialInterval;
     }
 
-    @Override
     public long getPollBackoffMaximumInterval() {
         return pollBackoffMaximumInterval;
     }
 
-    @Override
     public void setPollBackoffMaximumInterval(long backoffMaximumInterval) {
         if (backoffMaximumInterval <= 0) {
             throw new IllegalArgumentException("expected value should be positive: " + backoffMaximumInterval);
@@ -292,7 +270,6 @@ public abstract class GenericWorker implements WorkerBase {
     /**
      * @see #setDisableServiceShutdownOnStop(boolean)
      */
-    @Override
     public boolean isDisableServiceShutdownOnStop() {
         return disableServiceShutdownOnStop;
     }
@@ -309,17 +286,14 @@ public abstract class GenericWorker implements WorkerBase {
      *            <code>true</code> means do not call
      *            {@link AmazonSimpleWorkflow#shutdown()}
      */
-    @Override
     public void setDisableServiceShutdownOnStop(boolean disableServiceShutdownOnStop) {
         this.disableServiceShutdownOnStop = disableServiceShutdownOnStop;
     }
 
-    @Override
     public double getPollBackoffCoefficient() {
         return pollBackoffCoefficient;
     }
 
-    @Override
     public void setPollBackoffCoefficient(double backoffCoefficient) {
         if (backoffCoefficient < 1.0) {
             throw new IllegalArgumentException("expected value should be bigger or equal to 1.0: " + backoffCoefficient);
@@ -327,28 +301,23 @@ public abstract class GenericWorker implements WorkerBase {
         this.pollBackoffCoefficient = backoffCoefficient;
     }
 
-    @Override
     public int getPollThreadCount() {
         return pollThreadCount;
     }
 
-    @Override
     public void setPollThreadCount(int threadCount) {
         checkStarted();
         this.pollThreadCount = threadCount;
     }
 
-    @Override
     public void setDisableTypeRegistrationOnStart(boolean disableTypeRegistrationOnStart) {
         this.disableTypeRegitrationOnStart = disableTypeRegistrationOnStart;
     }
 
-    @Override
     public boolean isDisableTypeRegistrationOnStart() {
         return disableTypeRegitrationOnStart;
     }
 
-    @Override
     public void start() {
         if (log.isInfoEnabled()) {
             log.info("start: " + toString());
@@ -372,7 +341,7 @@ public abstract class GenericWorker implements WorkerBase {
                     maximumPollRateIntervalMilliseconds);
         }
 
-        pollExecutor = new ThreadPoolExecutor(pollThreadCount, pollThreadCount, 1, TimeUnit.MINUTES,
+        pollExecutor = new ThreadPoolExecutor(pollThreadCount, pollThreadCount, 60, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<Runnable>(pollThreadCount));
         ExecutorThreadFactory pollExecutorThreadFactory = getExecutorThreadFactory();
         pollExecutor.setThreadFactory(pollExecutorThreadFactory);
@@ -427,7 +396,6 @@ public abstract class GenericWorker implements WorkerBase {
         return pollExecutor != null;
     }
 
-    @Override
     public void shutdown() {
         if (log.isInfoEnabled()) {
             log.info("shutdown");
@@ -442,7 +410,6 @@ public abstract class GenericWorker implements WorkerBase {
         poller.shutdown();
     }
 
-    @Override
     public void shutdownNow() {
         if (log.isInfoEnabled()) {
             log.info("shutdownNow");
@@ -457,7 +424,6 @@ public abstract class GenericWorker implements WorkerBase {
         poller.shutdownNow();
     }
 
-    @Override
     public boolean awaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         long start = System.currentTimeMillis();
         boolean terminated = pollExecutor.awaitTermination(timeout, unit);
@@ -466,7 +432,6 @@ public abstract class GenericWorker implements WorkerBase {
         return poller.awaitTermination(left, TimeUnit.MILLISECONDS) && terminated;
     }
 
-    @Override
     public boolean shutdownAndAwaitTermination(long timeout, TimeUnit unit) throws InterruptedException {
         if (!isStarted()) {
             return true;
@@ -495,12 +460,10 @@ public abstract class GenericWorker implements WorkerBase {
                 + "]";
     }
 
-    @Override
     public boolean isRunning() {
         return isStarted() && !pollExecutor.isTerminated();
     }
 
-    @Override
     public void suspendPolling() {
         if (log.isInfoEnabled()) {
             log.info("suspendPolling");
@@ -508,7 +471,6 @@ public abstract class GenericWorker implements WorkerBase {
         suspendLatch.set(new CountDownLatch(1));
     }
 
-    @Override
     public void resumePolling() {
         if (log.isInfoEnabled()) {
             log.info("resumePolling");

@@ -144,7 +144,7 @@ public class ParallelScanTask {
 					segmentScanStates.notifyAll();
 				}
 				Future<ScanResult> futureTask = executorService.submit(new Callable<ScanResult>() {
-					@Override
+					
 					public ScanResult call() throws Exception {
 						try {
 							if (currentSegmentState == SegmentScanState.HasNextPage) {

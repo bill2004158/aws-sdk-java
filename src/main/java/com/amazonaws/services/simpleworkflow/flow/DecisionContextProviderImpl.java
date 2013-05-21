@@ -19,7 +19,6 @@ import com.amazonaws.services.simpleworkflow.flow.worker.CurrentDecisionContext;
 
 public class DecisionContextProviderImpl implements DecisionContextProvider {
 
-    @Override
     public DecisionContext getDecisionContext() {
         return CurrentDecisionContext.get();
     }

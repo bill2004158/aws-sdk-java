@@ -26,12 +26,10 @@ public class DownloadMonitor implements TransferMonitor {
         this.future = future;
     }
 
-    @Override
     public Future<?> getFuture() {
         return future;
     }
 
-    @Override
     public boolean isDone() {
         return download.isDone();
     }

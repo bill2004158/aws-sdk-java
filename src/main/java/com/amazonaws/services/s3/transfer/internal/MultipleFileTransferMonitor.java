@@ -39,12 +39,10 @@ public class MultipleFileTransferMonitor implements TransferMonitor {
          */
         this.future = new Future<Object>() {
 
-            @Override
             public boolean cancel(boolean mayInterruptIfRunning) {
                 return true;
             }
 
-            @Override
             public Object get() throws InterruptedException, ExecutionException {
                 Object result = null;
                 for ( AbstractTransfer download : MultipleFileTransferMonitor.this.subTransfers ) {
@@ -53,7 +51,6 @@ public class MultipleFileTransferMonitor implements TransferMonitor {
                 return result;
             }
 
-            @Override
             public Object get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException,
                     TimeoutException {
                 Object result = null;
@@ -63,24 +60,20 @@ public class MultipleFileTransferMonitor implements TransferMonitor {
                 return result;
             }
 
-            @Override
             public boolean isCancelled() {
                 return MultipleFileTransferMonitor.this.transfer.getState() == Transfer.TransferState.Canceled;
             }
 
-            @Override
             public boolean isDone() {
                 return MultipleFileTransferMonitor.this.isDone();
             }            
         };
     }
 
-    @Override
     public Future<?> getFuture() {
         return future;
     }
 
-    @Override
     public synchronized boolean isDone() {
         for ( Transfer subTransfer : subTransfers ) {
             if ( !subTransfer.isDone() )

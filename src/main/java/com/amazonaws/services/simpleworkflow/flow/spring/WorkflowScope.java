@@ -81,7 +81,6 @@ public class WorkflowScope implements Scope, ApplicationContextAware {
         CurrentDecisionContext.unset();
     }
     
-    @Override
     public Object get(String name, ObjectFactory<?> objectFactory) {
         Map<String, Object> map = objects.get();
         Object result = map.get(name);
@@ -99,29 +98,24 @@ public class WorkflowScope implements Scope, ApplicationContextAware {
 
     
     
-    @Override
     public String getConversationId() {
         return contextProvider.getDecisionContext().getWorkflowContext().getWorkflowExecution().getRunId();
     }
 
-    @Override
     public void registerDestructionCallback(String name, Runnable callback) {
         destructionCallbacks.get().add(callback);
     }
 
-    @Override
     public Object remove(String name) {
         Map<String, Object> map = objects.get();
         return map.remove(name);
     }
 
-    @Override
     public Object resolveContextualObject(String name) {
         //TODO: Understand why WorkflowScopeBeans cannot be returned from this method
         return null;
     }
 
-    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         AutowireCapableBeanFactory autowireCapableBeanFactory = applicationContext.getAutowireCapableBeanFactory();
         if (!(autowireCapableBeanFactory instanceof DefaultListableBeanFactory)) {

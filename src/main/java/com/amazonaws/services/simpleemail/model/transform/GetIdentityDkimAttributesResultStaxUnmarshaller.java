@@ -32,7 +32,7 @@ import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
  */
 public class GetIdentityDkimAttributesResultStaxUnmarshaller implements Unmarshaller<GetIdentityDkimAttributesResult, StaxUnmarshallerContext> {
     private static class DkimAttributesMapEntryUnmarshaller implements Unmarshaller<Map.Entry<String, IdentityDkimAttributes>, StaxUnmarshallerContext> {
-        @Override
+        
         public Entry<String, IdentityDkimAttributes> unmarshall(StaxUnmarshallerContext context) throws Exception {
             int originalDepth = context.getCurrentDepth();
             int targetDepth = originalDepth + 1;

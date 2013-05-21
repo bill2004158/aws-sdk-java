@@ -32,7 +32,7 @@ import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
  */
 public class GetIdentityVerificationAttributesResultStaxUnmarshaller implements Unmarshaller<GetIdentityVerificationAttributesResult, StaxUnmarshallerContext> {
     private static class VerificationAttributesMapEntryUnmarshaller implements Unmarshaller<Map.Entry<String, IdentityVerificationAttributes>, StaxUnmarshallerContext> {
-        @Override
+        
         public Entry<String, IdentityVerificationAttributes> unmarshall(StaxUnmarshallerContext context) throws Exception {
             int originalDepth = context.getCurrentDepth();
             int targetDepth = originalDepth + 1;

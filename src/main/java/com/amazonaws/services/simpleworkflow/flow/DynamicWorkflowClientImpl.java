@@ -80,32 +80,26 @@ public class DynamicWorkflowClientImpl implements DynamicWorkflowClient {
         }
     }
 
-    @Override
     public DataConverter getDataConverter() {
         return dataConverter;
     }
 
-    @Override
     public StartWorkflowOptions getSchedulingOptions() {
         return schedulingOptions;
     }
 
-    @Override
     public GenericWorkflowClient getGenericClient() {
         return genericClient;
     }
 
-    @Override
     public Promise<String> getRunId() {
         return runId;
     }
 
-    @Override
     public WorkflowExecution getWorkflowExecution() {
         return workflowExecution;
     }
 
-    @Override
     public WorkflowType getWorkflowType() {
         return workflowType;
     }
@@ -126,7 +120,6 @@ public class DynamicWorkflowClientImpl implements DynamicWorkflowClient {
         this.dataConverter = dataConverter;
     }
 
-    @Override
     public void requestCancelWorkflowExecution(Promise<?>... waitFor) {
         checkWorkflowExecution();
         new Task(waitFor) {
@@ -243,7 +236,6 @@ public class DynamicWorkflowClientImpl implements DynamicWorkflowClient {
         return result;
     }
 
-    @Override
     public void signalWorkflowExecution(final String signalName, final Object[] arguments, Promise<?>... waitFor) {
         checkWorkflowExecution();
         new Task(waitFor) {

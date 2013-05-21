@@ -22,7 +22,6 @@ public class OrPromise extends Promise<Void> {
 
     private final class OrPromiseCallback implements Runnable {
 
-        @Override
         public void run() {
             if (!impl.isReady()) {
                 impl.set(null);

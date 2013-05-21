@@ -29,7 +29,6 @@ import org.codehaus.jackson.map.MappingJsonFactory;
  */
 public class JsonMarshaller<T extends Object> implements DynamoDBMarshaller<T> {
 
-    @Override
     public String marshall(T obj) {
         try {
             JsonFactory jsonFactory = new MappingJsonFactory();
@@ -42,7 +41,6 @@ public class JsonMarshaller<T extends Object> implements DynamoDBMarshaller<T> {
         }
     }
 
-    @Override
     public T unmarshall(Class<T> clazz, String obj) {
         try {
             JsonFactory jsonFactory = new MappingJsonFactory();

@@ -157,7 +157,7 @@ public class POJOWorkflowDefinitionFactoryFactory extends WorkflowDefinitionFact
             }
             if (signalAnnotation != null) {
                 String signalName = signalAnnotation.name();
-                if (signalName == null || signalName.isEmpty()) {
+                if (signalName == null || signalName.length() == 0) {
                     signalName = method.getName();
                 }
                 DataConverter signalConverter = createConverter(workflowAnnotation.dataConverter(), converterOverride);
@@ -221,12 +221,10 @@ public class POJOWorkflowDefinitionFactoryFactory extends WorkflowDefinitionFact
             Class<?> workflowInteface, WorkflowType workflowType) {
         return new POJOWorkflowImplementationFactory() {
 
-            @Override
             public Object newInstance(DecisionContext decisionContext) throws Exception {
                 return workflowImplementationType.newInstance();
             }
 
-            @Override
             public void deleteInstance(Object instance) {
             }
         };
@@ -299,14 +297,14 @@ public class POJOWorkflowDefinitionFactoryFactory extends WorkflowDefinitionFact
         WorkflowType workflowType = new WorkflowType();
 
         String workflowName = null;
-        if (executeAnnotation.name() != null && !executeAnnotation.name().isEmpty()) {
+        if (executeAnnotation.name() != null && !(executeAnnotation.name().length() == 0)) {
             workflowName = executeAnnotation.name();
         }
         else {
             workflowName = interfaceName + "." + method.getName();
         }
 
-        if (executeAnnotation.version().isEmpty()) {
+        if (executeAnnotation.version().length() == 0) {
             throw new IllegalArgumentException(
                     "Empty value of the required \"version\" parameter of the @Execute annotation found on "
                             + getMethodFullName(method));

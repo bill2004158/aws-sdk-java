@@ -64,7 +64,6 @@ public class TestWorkflowClock implements WorkflowClock {
             return timerResult;
         }
 
-        @Override
         public int compareTo(TimerInfo<T> o) {
             return fireTime.compareTo(o.fireTime);
         }
@@ -90,7 +89,6 @@ public class TestWorkflowClock implements WorkflowClock {
 
     private PriorityQueue<TimerInfo<?>> timers = new PriorityQueue<TimerInfo<?>>();
 
-    @Override
     public long currentTimeMillis() {
         return clockTime;
     }
@@ -99,18 +97,15 @@ public class TestWorkflowClock implements WorkflowClock {
         clockTime = timeMillis;
     }
 
-    @Override
     public boolean isReplaying() {
         // Unit test never replays
         return false;
     }
 
-    @Override
     public Promise<Void> createTimer(long delaySeconds) {
         return createTimer(delaySeconds, null);
     }
 
-    @Override
     public <T> Promise<T> createTimer(final long delaySeconds, final T context) {
         if (delaySeconds < 0) {
             throw new IllegalArgumentException("negative delaySeconds");
@@ -130,7 +125,6 @@ public class TestWorkflowClock implements WorkflowClock {
                 timer.setCompletionHandle(handle);
                 return new ExternalTaskCancellationHandler() {
 
-                    @Override
                     public void handleCancellation(Throwable e) {
                         timers.remove(timer);
                         timer.cancel();

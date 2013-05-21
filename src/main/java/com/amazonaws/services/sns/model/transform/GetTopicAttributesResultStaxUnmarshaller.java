@@ -32,7 +32,7 @@ import com.amazonaws.transform.SimpleTypeStaxUnmarshallers.*;
  */
 public class GetTopicAttributesResultStaxUnmarshaller implements Unmarshaller<GetTopicAttributesResult, StaxUnmarshallerContext> {
     private static class AttributesMapEntryUnmarshaller implements Unmarshaller<Map.Entry<String, String>, StaxUnmarshallerContext> {
-        @Override
+        
         public Entry<String, String> unmarshall(StaxUnmarshallerContext context) throws Exception {
             int originalDepth = context.getCurrentDepth();
             int targetDepth = originalDepth + 1;
