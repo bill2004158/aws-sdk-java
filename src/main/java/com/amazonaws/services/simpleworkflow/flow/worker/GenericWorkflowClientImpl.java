@@ -69,12 +69,10 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
             result.setDescription(description);
         }
 
-        @Override
         public String getRunId() {
             return runId;
         }
 
-        @Override
         public Promise<String> getResult() {
             return result;
         }
@@ -96,14 +94,12 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
             this.handle = handle;
         }
 
-        @Override
         public void handleCancellation(Throwable cause) {
             RequestCancelExternalWorkflowExecutionDecisionAttributes cancelAttributes = new RequestCancelExternalWorkflowExecutionDecisionAttributes();
             cancelAttributes.setWorkflowId(workflowId);
 
             decisions.requestCancelExternalWorkflowExecution(true, cancelAttributes, new Runnable() {
 
-                @Override
                 public void run() {
                     OpenRequestInfo<StartChildWorkflowReply, WorkflowType> scheduled = scheduledExternalWorkflows.remove(workflowId);
                     if (scheduled == null) {
@@ -128,7 +124,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         this.workflowContext = workflowContext;
     }
 
-    @Override
     public Promise<StartChildWorkflowReply> startChildWorkflow(final StartChildWorkflowExecutionParameters parameters) {
         final OpenRequestInfo<StartChildWorkflowReply, WorkflowType> context = new OpenRequestInfo<StartChildWorkflowReply, WorkflowType>();
         final StartChildWorkflowExecutionDecisionAttributes attributes = new StartChildWorkflowExecutionDecisionAttributes();
@@ -150,7 +145,7 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
             attributes.setChildPolicy(childPolicy);
         }
         String taskList = parameters.getTaskList();
-        if (taskList != null && !taskList.isEmpty()) {
+        if (taskList != null && !(taskList.length() == 0)) {
             attributes.setTaskList(new TaskList().withName(taskList));
         }
         String taskName = "workflowId=" + workflowId + ", workflowType=" + attributes.getWorkflowType();
@@ -168,7 +163,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         return context.getResult();
     }
 
-    @Override
     public Promise<String> startChildWorkflow(String workflow, String version, String input) {
         StartChildWorkflowExecutionParameters parameters = new StartChildWorkflowExecutionParameters();
         parameters.setWorkflowType(new WorkflowType().withName(workflow).withVersion(version));
@@ -183,7 +177,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         };
     }
 
-    @Override
     public Promise<String> startChildWorkflow(final String workflow, final String version, final Promise<String> input) {
         final Settable<String> result = new Settable<String>();
 
@@ -197,7 +190,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         return result;
     }
 
-    @Override
     public Promise<Void> signalWorkflowExecution(final SignalExternalWorkflowParameters parameters) {
         final OpenRequestInfo<Void, Void> context = new OpenRequestInfo<Void, Void>();
         final SignalExternalWorkflowExecutionDecisionAttributes attributes = new SignalExternalWorkflowExecutionDecisionAttributes();
@@ -236,7 +228,6 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         return context.getResult();
     }
 
-    @Override
     public void requestCancelWorkflowExecution(WorkflowExecution execution) {
         RequestCancelExternalWorkflowExecutionDecisionAttributes attributes = new RequestCancelExternalWorkflowExecutionDecisionAttributes();
         String workflowId = execution.getWorkflowId();
@@ -247,13 +238,11 @@ class GenericWorkflowClientImpl implements GenericWorkflowClient {
         decisions.requestCancelExternalWorkflowExecution(childWorkflow, attributes, null);
     }
 
-    @Override
     public void continueAsNewOnCompletion(ContinueAsNewWorkflowExecutionParameters continueParameters) {
         // TODO: add validation to check if continueAsNew is not set 
         workflowContext.setContinueAsNewOnCompletion(continueParameters);
     }
 
-    @Override
     public String generateUniqueId() {
         WorkflowExecution workflowExecution = workflowContext.getWorkflowExecution();
         String runId = workflowExecution.getRunId();

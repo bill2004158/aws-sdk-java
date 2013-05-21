@@ -180,7 +180,9 @@ class HttpClientFactory {
                 context.init(null, new TrustManager[] { new TrustingX509TrustManager() }, null);
                 return context;
             } catch (Exception e) {
-                throw new IOException(e.getMessage(), e);
+                IOException ioe = new IOException(e.getMessage());
+                ioe.initCause(e);
+                throw ioe;
             }
         }
 

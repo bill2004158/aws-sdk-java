@@ -326,7 +326,7 @@ class DecisionsHelper {
             attributes.setTagList(tagList);
         }
         String taskList = continueParameters.getTaskList();
-        if (taskList != null && !taskList.isEmpty()) {
+        if (taskList != null && !(taskList.length() == 0)) {
             attributes.setTaskList(new TaskList().withName(taskList));
         }
 

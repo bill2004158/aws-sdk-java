@@ -310,7 +310,7 @@ public class POJOActivityImplementationFactory extends ActivityImplementationFac
     }
 
     private static boolean nullOrEmpty(String nameFromAnnotation) {
-        return nameFromAnnotation == null || nameFromAnnotation.isEmpty();
+        return nameFromAnnotation == null || nameFromAnnotation.length() == 0;
     }
 
     /**

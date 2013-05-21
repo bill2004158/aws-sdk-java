@@ -135,7 +135,7 @@ public class ContinueAsNewWorkflowExecutionParameters {
             }
             
             String taskList = options.getTaskList();
-            if (taskList != null && !taskList.isEmpty()) { 
+            if (taskList != null && !(taskList.length() == 0)) { 
                 continueAsNewWorkflowExecutionParameters.setTaskList(taskList);
             }
             
@@ -162,7 +162,7 @@ public class ContinueAsNewWorkflowExecutionParameters {
             }
             
             String taskList = optionsOverride.getTaskList();
-            if (taskList != null && !taskList.isEmpty()) { 
+            if (taskList != null && !(taskList.length() == 0)) { 
                 continueAsNewWorkflowExecutionParameters.setTaskList(taskList);
             }
             

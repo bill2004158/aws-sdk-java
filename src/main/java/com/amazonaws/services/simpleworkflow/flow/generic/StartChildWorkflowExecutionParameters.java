@@ -178,7 +178,7 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
             }
 
             String taskList = options.getTaskList();
-            if (taskList != null && !taskList.isEmpty()) {
+            if (taskList != null && !(taskList.length() == 0)) {
                 startChildWorkflowExecutionParameters.setTaskList(taskList);
             }
 
@@ -205,7 +205,7 @@ public class StartChildWorkflowExecutionParameters implements Cloneable {
             }
 
             String taskList = optionsOverride.getTaskList();
-            if (taskList != null && !taskList.isEmpty()) {
+            if (taskList != null && !(taskList.length() == 0)) {
                 startChildWorkflowExecutionParameters.setTaskList(taskList);
             }
 

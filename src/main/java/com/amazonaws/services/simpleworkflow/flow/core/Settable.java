@@ -149,7 +149,6 @@ public class Settable<V> extends Promise<V> {
         }
         chainCallback = new Runnable() {
 
-            @Override
             public void run() {
                 set(chainTo.get());
             }

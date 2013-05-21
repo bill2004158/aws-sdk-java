@@ -41,7 +41,6 @@ public abstract class AsyncScope extends AsyncContextAware implements Cancelable
         context.cancel(cause);
     }
 
-    @Override
     public boolean isCancelRequested() {
         return context.isCancelRequested();
     }

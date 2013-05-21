@@ -368,7 +368,7 @@ public class ExecuteActivityParameters implements Cloneable {
     		}
     		
     		String taskList = options.getTaskList();
-    		if (taskList != null && !taskList.isEmpty()) { 
+    		if (taskList != null && !(taskList.length() == 0)) { 
     			scheduleActivityParameters.setTaskList(taskList);
     		}
     	}
@@ -395,7 +395,7 @@ public class ExecuteActivityParameters implements Cloneable {
             }
     		
     		String taskList = optionsOverride.getTaskList();
-    		if (taskList != null && !taskList.isEmpty()) { 
+    		if (taskList != null && !(taskList.length() == 0)) { 
     			scheduleActivityParameters.setTaskList(taskList);
     		}
     	}
